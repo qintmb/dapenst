@@ -2,12 +2,16 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('');
+  const [isLayananDropdownOpen, setIsLayananDropdownOpen] = useState(false);
+  const [isAntiFraudDropdownOpen, setIsAntiFraudDropdownOpen] = useState(false);
+  const layananDropdownRef = useRef<HTMLDivElement>(null);
+  const antiFraudDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,22 +22,51 @@ export default function Navbar() {
       setActiveLink(window.location.pathname);
     };
     
+    const handleClickOutside = (event: MouseEvent) => {
+      if (layananDropdownRef.current && !layananDropdownRef.current.contains(event.target as Node)) {
+        setIsLayananDropdownOpen(false);
+      }
+      if (antiFraudDropdownRef.current && !antiFraudDropdownRef.current.contains(event.target as Node)) {
+        setIsAntiFraudDropdownOpen(false);
+      }
+    };
+    
     handleRouteChange();
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('popstate', handleRouteChange);
+    document.addEventListener('mousedown', handleClickOutside);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('popstate', handleRouteChange);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   const navLinks = [
     { name: 'Beranda', href: '/' },
     { name: 'Profil', href: '/profil' },
-    { name: 'Layanan', href: '/layanan' },
+    { 
+      name: 'Layanan', 
+      href: '/layanan',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: 'Program Pensiun', href: '/layanan/program-pensiun' },
+        { name: 'Investasi', href: '/layanan/investasi' },
+        { name: 'Konsultasi Keuangan', href: '/layanan/konsultasi-keuangan' },
+      ] 
+    },
     { name: 'Berita', href: '/berita' },
     { name: 'Informasi', href: '/informasi' },
+    { 
+      name: 'Anti Fraud', 
+      href: '/anti-fraud',
+      hasDropdown: true,
+      dropdownItems: [
+        { name: 'Deklarasi Anti Fraud', href: '/anti-fraud/deklarasi' },
+        { name: 'Whistle Blowing System', href: '/anti-fraud/whistle-blowing' },
+      ] 
+    },
   ];
 
   return (
@@ -68,17 +101,94 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-1">
           {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 ${
-                activeLink === link.href
-                  ? 'bg-primary/10 text-primary font-bold' 
-                  : 'text-gray-700 hover:text-primary hover:bg-gray-50'
-              }`}
-            >
-              {link.name}
-            </Link>
+            <div key={link.name} className="relative" ref={link.name === 'Layanan' ? layananDropdownRef : (link.name === 'Anti Fraud' ? antiFraudDropdownRef : undefined)}>
+              {link.hasDropdown ? (
+                <>
+                  <button
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center ${
+                      activeLink.startsWith(link.href)
+                        ? 'bg-primary/10 text-primary font-bold'
+                        : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                    }`}
+                    onClick={() => {
+                      if (link.name === 'Layanan') {
+                        setIsLayananDropdownOpen(!isLayananDropdownOpen);
+                        setIsAntiFraudDropdownOpen(false);
+                      } else if (link.name === 'Anti Fraud') {
+                        setIsAntiFraudDropdownOpen(!isAntiFraudDropdownOpen);
+                        setIsLayananDropdownOpen(false);
+                      }
+                    }}
+                  >
+                    {link.name}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 ml-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                  {link.name === 'Layanan' && isLayananDropdownOpen && (
+                    <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                      <div className="py-1" role="menu" aria-orientation="vertical">
+                        {link.dropdownItems?.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            onClick={() => {
+                              setActiveLink(item.href);
+                              setIsLayananDropdownOpen(false);
+                            }}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {link.name === 'Anti Fraud' && isAntiFraudDropdownOpen && (
+                    <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                      <div className="py-1" role="menu" aria-orientation="vertical">
+                        {link.dropdownItems?.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            onClick={() => {
+                              setActiveLink(item.href);
+                              setIsAntiFraudDropdownOpen(false);
+                            }}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link
+                  href={link.href}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 ${
+                    activeLink === link.href
+                      ? 'bg-primary/10 text-primary font-bold' 
+                      : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                  }`}
+                  onClick={() => setActiveLink(link.href)}
+                >
+                  {link.name}
+                </Link>
+              )}
+            </div>
           ))}
         </nav>
 
@@ -109,21 +219,50 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-4 py-4 bg-white dark:bg-gray-900">
           <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeLink === link.href
-                    ? 'bg-primary text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </div>
+          {navLinks.map((link) => (
+            <div key={link.name}>
+              {link.hasDropdown ? (
+                <>
+                  <div
+                    className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      activeLink.startsWith(link.href)
+                        ? 'bg-primary text-white'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <Link href={link.href} onClick={() => setIsMobileMenuOpen(false)}>
+                      {link.name}
+                    </Link>
+                  </div>
+                  <div className="pl-6 mt-1 space-y-1">
+                    {link.dropdownItems?.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <Link
+                  href={link.href}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    activeLink === link.href
+                      ? 'bg-primary text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )}
+            </div>
+          ))}
+        </div>
         </div>
       </div>
     </header>

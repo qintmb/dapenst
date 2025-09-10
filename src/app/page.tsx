@@ -4,7 +4,13 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Navbar from './components/Navbar';
 import Slideshow from './components/Slideshow';
+import BeritaTerbaru from '@/components/BeritaTerbaru';
 import Link from "next/link";
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default function Home() {
   useEffect(() => {
@@ -162,30 +168,7 @@ export default function Home() {
         {/* News Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground animate-on-scroll opacity-0">Berita Terbaru</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div 
-                key={item} 
-                className="bg-container-grey dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0"
-                style={{ animationDelay: `${item * 100}ms` }}
-              >
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48" />
-                <div className="p-6">
-                  <span className="text-sm text-primary font-semibold">12 Sep 2025</span>
-                  <h3 className="text-xl font-semibold my-2 text-foreground">Judul Berita Terbaru Dana Pensiun</h3>
-                  <p className="text-secondary mb-4">
-                    Ringkasan singkat berita terbaru mengenai program dana pensiun dan perkembangan terkini...
-                  </p>
-                  <button className="text-primary hover:text-red-700 font-semibold flex items-center transition-all duration-300 group">
-                    Baca Selengkapnya
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <BeritaTerbaru />
         </section>
       </main>
     </div>
