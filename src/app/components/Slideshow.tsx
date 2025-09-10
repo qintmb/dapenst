@@ -2,30 +2,31 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Slideshow() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   
-  // Using existing images from the public directory
+  // Slide data
   const slides = [
     {
       id: 1,
-      title: 'Selamat Datang di Dana Pensiun Semen Tonasa',
-      description: 'Solusi pensiun terbaik untuk karyawan Semen Tonasa',
-      image: '/next.svg'
+      title: 'Dana Pensiun Semen Tonasa',
+      description: 'Menjamin kesejahteraan di masa pensiun Anda dengan layanan terpercaya',
+      bgImage: '/img/Home-01.webp'
     },
     {
       id: 2,
-      title: 'Keamanan dan Kenyamanan Anda Adalah Prioritas Kami',
-      description: 'Dana pensiun yang terpercaya dan terjamin',
-      image: '/vercel.svg'
+      title: 'Layanan Terbaik',
+      description: 'Komitmen kami untuk memberikan layanan terbaik dan profesional',
+      bgImage: '/img/Home-02.webp'
     },
     {
       id: 3,
-      title: 'Layanan Terbaik untuk Masa Depan Anda',
-      description: 'Konsultasi gratis dan pelayanan profesional',
-      image: '/globe.svg'
+      title: 'Investasi Masa Depan',
+      description: 'Kelola dana pensiun Anda dengan aman dan menguntungkan untuk masa depan cerah',
+      bgImage: '/img/Home-03.webp'
     }
   ];
 
@@ -53,7 +54,7 @@ export default function Slideshow() {
   };
 
   return (
-    <div className="relative h-[70vh] w-full overflow-hidden">
+    <div className="relative h-[500px] md:h-[650px] w-full overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div 
@@ -64,33 +65,41 @@ export default function Slideshow() {
               : 'opacity-0 scale-110'
           }`}
         >
-          {/* Using solid color background with text since we're using SVG images */}
+          {/* Using background image */}
           <div 
-            className="w-full h-full bg-gradient-to-r from-primary to-red-800 flex items-center justify-center"
+            className="w-full h-full flex items-center justify-center relative"
           >
-            <div className="text-center text-white px-4 max-w-4xl transition-all duration-1000 ease-out transform translate-y-0 opacity-100">
-              <div className="flex justify-center mb-6">
-                <div className="relative w-24 h-24 invert">
-                  <Image 
-                    src={slide.image} 
-                    alt={slide.title} 
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+            <div className="absolute inset-0 z-0">
+              <Image 
+                src={slide.bgImage}
+                alt="Background"
+                fill
+                className="object-cover object-right md:object-center"
+                priority={index === 0}
+              />
+              <div className="absolute inset-0 bg-black/20"></div>
+            </div>
+            <div className="flex flex-col items-start text-left max-w-4xl px-6 md:px-10 z-10 w-full">
+              <div className="w-full text-left md:w-3/4">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-4 animate-fadeInUp">
+                  {slide.title}
+                </h2>
+                <p className="text-base md:text-lg lg:text-xl text-white/90 mb-4 md:mb-8 animate-fadeInUp delay-100">
+                  {slide.description}
+                </p>
+                <Link href="/layanan">
+                <button className="bg-primary text-white px-6 py-2 md:px-8 md:py-3 rounded-full font-medium hover:bg-primary/90 transition-all transform hover:scale-105 active:scale-95 shadow-md animate-fadeInUp delay-200 text-sm md:text-base">
+                  Pelajari Lebih Lanjut
+                </button>
+                </Link>
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fadeInUp">{slide.title}</h1>
-              <p className="text-lg md:text-xl mb-8 animate-fadeInUp delay-100">{slide.description}</p>
-              <button className="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fadeInUp delay-200">
-                Pelajari Lebih Lanjut
-              </button>
             </div>
           </div>
         </div>
       ))}
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
         {slides.map((_, index) => (
           <button
             key={index}

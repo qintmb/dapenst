@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
+import Image from 'next/image';
 import Navbar from './components/Navbar';
 import Slideshow from './components/Slideshow';
+import Link from "next/link";
 
 export default function Home() {
   useEffect(() => {
@@ -29,31 +31,71 @@ export default function Home() {
       <div className="pt-20"> {/* Added padding to account for fixed navbar */}
         <Slideshow />
       </div>
+      
+      {/* Hero Section with Animation */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-1/2 mb-8 md:mb-0 animate-on-scroll opacity-0">
+              <h2 className="text-4xl font-bold mb-6 text-primary">Kami Adalah Koneksi Emosi Anda</h2>
+              <p className="text-gray-700 text-lg mb-6">
+                Menciptakan harmoni antara gedung, perkantoran, dan tenaga kerja yang sempurna untuk Anda.
+                Dana Pensiun Semen Tonasa hadir untuk memastikan masa depan karyawan yang sejahtera.
+              </p>
+              <Link href="/profil">
+                <button className="bg-primary hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                  Pelajari Lebih Lanjut
+                </button>
+              </Link>
+            </div>
+            <div className="md:w-1/2 flex justify-center animate-on-scroll opacity-0 delay-100">
+              <div className="relative w-full h-80 md:h-96 overflow-hidden rounded-lg shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-20"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Image 
+                    src="/favicon/favicon.svg" 
+                    alt="Dana Pensiun Semen Tonasa" 
+                    width={200} 
+                    height={200} 
+                    className="transform hover:scale-110 transition-transform duration-500" 
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
         {/* Services Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground animate-on-scroll opacity-0">Layanan Kami</h2>
+        <section className="mb-16 py-12 bg-grey-soft bg-opacity-30 rounded-lg">
+          <h2 className="text-3xl font-bold text-center mb-12 text-primary animate-on-scroll opacity-0">Layanan Kami</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-container-grey dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0">
-              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4" />
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 border-t-4 border-primary">
+              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4 flex items-center justify-center">
+                <Image src="/pen-to-square.svg" alt="Perencanaan Pensiun Icon" width={40} height={40} />
+              </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">Perencanaan Pensiun</h3>
               <p className="text-secondary">
                 Kami membantu Anda merencanakan masa pensiun dengan memberikan solusi terbaik sesuai kebutuhan Anda.
               </p>
             </div>
             
-            <div className="bg-container-grey dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 delay-100">
-              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4" />
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 delay-100 border-t-4 border-accent">
+              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4 flex items-center justify-center">
+                <Image src="/label-dollar-2.svg" alt="Investasi Aman Icon" width={40} height={40} />
+              </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">Investasi Aman</h3>
               <p className="text-secondary">
                 Dana pensiun Anda diinvestasikan dengan prinsip keamanan dan keuntungan jangka panjang yang terjamin.
               </p>
             </div>
             
-            <div className="bg-container-grey dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 delay-200">
-              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4" />
+            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0 delay-200 border-t-4 border-pink-light">
+              <div className="bg-gray-200 border-2 border-dashed rounded-xl w-16 h-16 mb-4 flex items-center justify-center">
+                <Image src="/refresh-user-1.svg" alt="Konsultasi Gratis" width={40} height={40} />
+              </div>
               <h3 className="text-xl font-semibold mb-2 text-foreground">Konsultasi Gratis</h3>
               <p className="text-secondary">
                 Tim ahli kami siap memberikan konsultasi gratis untuk membantu Anda memilih program terbaik.
@@ -64,29 +106,59 @@ export default function Home() {
 
         {/* About Section */}
         <section className="mb-16">
-          <div className="bg-soft-grey rounded-lg p-8 md:p-12 animate-on-scroll opacity-0">
+          <div className="bg-white rounded-lg p-8 md:p-12 animate-on-scroll opacity-0 shadow-lg border border-grey-soft">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8">
-                <h2 className="text-3xl font-bold mb-4 text-foreground">Tentang Dana Pensiun Semen Tonasa</h2>
-                <p className="text-secondary mb-4">
-                  Dana Pensiun Semen Tonasa adalah lembaga pensiun yang berkomitmen memberikan pelayanan terbaik 
-                  untuk karyawan PT Semen Tonasa. Kami hadir untuk memastikan masa depan karyawan yang sejahtera.
+                <h2 className="text-3xl font-bold mb-4 text-primary">Tentang Dana Pensiun Semen Tonasa</h2>
+                <p className="text-gray-700 mb-4">
+                  Dana Pensiun Semen Tonasa berkomitmen untuk memberikan kesejahteraan finansial bagi para pensiunan dengan berbagai layanan dan program yang dirancang untuk memastikan masa pensiun yang aman dan nyaman.
+                  Dengan pengalaman lebih dari 20 tahun, kami terus berinovasi untuk memenuhi kebutuhan para pensiunan dan memberikan solusi terbaik untuk perencanaan pensiun Anda.
                 </p>
-                <p className="text-secondary">
-                  Dengan pengalaman lebih dari 20 tahun, kami telah melayani ribuan karyawan dengan program pensiun 
-                  yang terpercaya dan terjamin.
-                </p>
+                <Link href="/profil">
                 <button className="mt-6 bg-primary hover:bg-red-700 text-white font-bold py-2 px-6 rounded transition-all duration-300 transform hover:scale-105">
                   Selengkapnya
                 </button>
+                </Link>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-64 md:h-80 transition-all duration-500 transform hover:scale-105" />
+                <div className="relative w-full h-64 md:h-80 overflow-hidden rounded-lg shadow-lg transition-all duration-500 transform hover:scale-105">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent opacity-10"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Image 
+                      src="/favicon/favicon.svg" 
+                      alt="Dana Pensiun Semen Tonasa Logo" 
+                      width={150} 
+                      height={150} 
+                      className="opacity-70" 
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Stats Section */}
+        <section className="mb-16 py-12 bg-primary bg-opacity-5 rounded-lg">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12 text-primary animate-on-scroll opacity-0">Kepercayaan Terhadap Kami</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+              <div className="animate-on-scroll opacity-0">
+                <div className="text-white text-6xl font-bold mb-2">20+</div>
+                <div className="text-white">Tahun Pengalaman</div>
+              </div>
+              <div className="animate-on-scroll opacity-0 delay-100">
+                <div className="text-white text-6xl font-bold mb-2">1000+</div>
+                <div className="text-white">Peserta Aktif</div>
+              </div>
+              <div className="animate-on-scroll opacity-0 delay-200">
+                <div className="text-white text-6xl font-bold mb-2">100%</div>
+                <div className="text-white">Kepuasan Pelanggan</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* News Section */}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground animate-on-scroll opacity-0">Berita Terbaru</h2>
@@ -116,62 +188,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">Dana Pensiun<br />Semen Tonasa</h3>
-              <p className="text-gray-400">
-                Memberikan solusi pensiun terbaik untuk karyawan PT Semen Tonasa.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Tautan</h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Beranda</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Profil</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Layanan</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Berita</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Informasi</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Kontak</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>Jl. Raya Semen Tonasa, Pangkep</li>
-                <li>Telp: (0410) 123456</li>
-                <li>Email: info@danapensiunsementonasa.co.id</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Ikuti Kami</h4>
-              <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <span className="sr-only">Facebook</span>
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <span className="sr-only">Twitter</span>
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  <span className="sr-only">Instagram</span>
-                  <div className="bg-gray-200 border-2 border-dashed rounded-xl w-8 h-8" />
-                </a>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Dana Pensiun Semen Tonasa. Hak Cipta Dilindungi.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
@@ -39,22 +40,24 @@ export default function Navbar() {
     <header 
       className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
         isScrolled 
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-2 shadow-sm' 
-          : 'bg-primary py-4 shadow-none'
+          ? 'bg-white/50 backdrop-blur-sm py-2 shadow-sm' 
+          : 'bg-white py-4 border-b border-grey-soft'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
         <Link 
           href="/" 
-          className={`flex items-center transition-all duration-300 ${
-            isScrolled ? 'text-primary' : 'text-white'
-          }`}
+          className="flex items-center transition-all duration-300 text-primary"
         >
-          <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3">
-            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-white text-xs font-bold">D</span>
-            </div>
+          <div className="mr-2">
+            <Image 
+              src="/favicon/favicon.svg" 
+              alt="Dana Pensiun Semen Tonasa Logo" 
+              width={55} 
+              height={55} 
+              className="w-8 h-8" 
+            />
           </div>
           <div>
             <span className="text-xl font-bold block">Dana Pensiun</span>
@@ -70,12 +73,8 @@ export default function Navbar() {
               href={link.href}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 ${
                 activeLink === link.href
-                  ? (isScrolled 
-                      ? 'bg-gray-100 text-primary' 
-                      : 'bg-white/20 text-white')
-                  : (isScrolled 
-                      ? 'text-gray-600 hover:text-primary hover:bg-gray-50' 
-                      : 'text-white/90 hover:text-white hover:bg-white/10')
+                  ? 'bg-primary/10 text-primary font-bold' 
+                  : 'text-gray-700 hover:text-primary hover:bg-gray-50'
               }`}
             >
               {link.name}
@@ -85,17 +84,17 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white focus:outline-none"
+          className="md:hidden text-primary focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <div className="w-6 h-6 flex flex-col justify-between">
-            <span className={`block h-0.5 bg-white transition-transform duration-300 ${
+            <span className={`block h-0.5 bg-primary transition-transform duration-300 ${
               isMobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''
             }`}></span>
-            <span className={`block h-0.5 bg-white transition-opacity duration-300 ${
+            <span className={`block h-0.5 bg-primary transition-opacity duration-300 ${
               isMobileMenuOpen ? 'opacity-0' : 'opacity-100'
             }`}></span>
-            <span className={`block h-0.5 bg-white transition-transform duration-300 ${
+            <span className={`block h-0.5 bg-primary transition-transform duration-300 ${
               isMobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''
             }`}></span>
           </div>

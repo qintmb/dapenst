@@ -38,14 +38,14 @@ export default function Berita() {
           {[1, 2, 3, 4, 5, 6].map((item) => (
             <div 
               key={item} 
-              className="bg-container-grey dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0"
+              className="bg-container-grey dark:bg-gray-400 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0"
               style={{ animationDelay: `${item * 50}ms` }}
             >
               <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-48 transition-all duration-500 transform hover:scale-105" />
               <div className="p-6">
                 <span className="text-sm text-primary font-semibold">12 Sep 2025</span>
-                <h3 className="text-xl font-semibold my-2 text-foreground">Judul Berita Terbaru Dana Pensiun</h3>
-                <p className="text-secondary mb-4">
+                <h3 className="text-white text-xl font-semibold my-2">Judul Berita Terbaru Dana Pensiun</h3>
+                <p className="text-black text-secondary mb-4">
                   Ringkasan singkat berita terbaru mengenai program dana pensiun dan perkembangan terkini...
                 </p>
                 <button className="text-primary hover:text-red-700 font-semibold flex items-center transition-all duration-300 group">
