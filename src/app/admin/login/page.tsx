@@ -17,11 +17,9 @@ export default function AdminLogin() {
     setIsLoading(true);
 
     try {
-      // Verifikasi kredensial admin
-      // Dalam kasus nyata, ini akan menggunakan .env, tapi untuk demo kita hardcode
-      // Pada implementasi sebenarnya, gunakan process.env.ADMIN_USERNAME dan process.env.ADMIN_PASSWORD
-      const adminUsername = "admindpst";
-      const adminPassword = "dPsT2025";
+      // Verifikasi kredensial admin menggunakan environment variables
+      const adminUsername = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admindpst";
+      const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "dPsT2025";
 
       if (username === adminUsername && password === adminPassword) {
         // Simpan status login di localStorage atau sessionStorage

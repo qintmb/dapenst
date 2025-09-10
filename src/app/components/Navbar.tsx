@@ -79,22 +79,22 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="flex items-center transition-all duration-300 text-primary"
         >
-          <div className="mr-2">
-            <Image 
-              src="/favicon/favicon.svg" 
-              alt="Dana Pensiun Semen Tonasa Logo" 
-              width={55} 
-              height={55} 
-              className="w-8 h-8" 
+          <div className="mr-3 flex-shrink-0">
+            <Image
+              src="/favicon/favicon.svg"
+              alt="Dana Pensiun Semen Tonasa Logo"
+              width={55}
+              height={55}
+              className="w-8 h-8"
             />
           </div>
-          <div>
-            <span className="text-xl font-bold block">Dana Pensiun</span>
-            <span className="text-sm block">Semen Tonasa</span>
+          <div className="flex flex-col justify-center">
+            <span className="text-xl font-bold leading-tight">Dana Pensiun</span>
+            <span className="text-sm leading-tight">Semen Tonasa</span>
           </div>
         </Link>
 

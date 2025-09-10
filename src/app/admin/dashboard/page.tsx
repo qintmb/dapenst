@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { supabaseAdmin } from '../../utils/supabase';
+import { supabase } from '../../utils/supabase';
 import { Berita } from '../../utils/supabase';
 
 export default function AdminDashboard() {
@@ -44,13 +44,13 @@ export default function AdminDashboard() {
 
   const fetchBerita = async () => {
     try {
-      const { data, error } = await supabaseAdmin
+      const { data, error } = await supabase
         .from('berita')
         .select('*')
         .order('tanggal', { ascending: false });
 
       if (error) throw error;
-      
+
       setBeritaList(data || []);
     } catch (error) {
       console.error('Error fetching berita:', error);
@@ -119,14 +119,14 @@ export default function AdminDashboard() {
         const fileName = `${Date.now()}.${fileExt}`;
         const filePath = `berita/${fileName}`;
 
-        const { error: uploadError } = await supabaseAdmin
+        const { error: uploadError } = await supabase
           .storage
           .from('images')
           .upload(filePath, imageFile);
 
         if (uploadError) throw uploadError;
 
-        const { data } = supabaseAdmin
+        const { data } = supabase
           .storage
           .from('images')
           .getPublicUrl(filePath);
@@ -136,7 +136,7 @@ export default function AdminDashboard() {
 
       if (isEditing && currentBerita.id) {
         // Update berita
-        const { error } = await supabaseAdmin
+        const { error } = await supabase
           .from('berita')
           .update({
             judul: currentBerita.judul,
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
         setSuccess('Berita berhasil diperbarui');
       } else {
         // Tambah berita baru
-        const { error } = await supabaseAdmin
+        const { error } = await supabase
           .from('berita')
           .insert([
             {
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id: string) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus berita ini?')) {
       try {
-        const { error } = await supabaseAdmin
+        const { error } = await supabase
           .from('berita')
           .delete()
           .eq('id', id);
