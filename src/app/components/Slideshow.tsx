@@ -1,49 +1,48 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 export default function Slideshow() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   
-  // Sample images - in a real app, you would replace these with actual images
+  // Using existing images from the public directory
   const slides = [
     {
       id: 1,
       title: 'Selamat Datang di Dana Pensiun Semen Tonasa',
       description: 'Solusi pensiun terbaik untuk karyawan Semen Tonasa',
-      image: '/placeholder-1.jpg'
+      image: '/next.svg'
     },
     {
       id: 2,
       title: 'Keamanan dan Kenyamanan Anda Adalah Prioritas Kami',
       description: 'Dana pensiun yang terpercaya dan terjamin',
-      image: '/placeholder-2.jpg'
+      image: '/vercel.svg'
     },
     {
       id: 3,
       title: 'Layanan Terbaik untuk Masa Depan Anda',
       description: 'Konsultasi gratis dan pelayanan profesional',
-      image: '/placeholder-3.jpg'
+      image: '/globe.svg'
     }
   ];
 
-  // Auto-advance slides every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      goToNextSlide();
-    }, 5000);
-    
-    return () => clearInterval(interval);
-  }, [currentSlide]);
-
-  const goToNextSlide = () => {
+  const goToNextSlide = useCallback(() => {
     setIsAnimating(true);
     setTimeout(() => {
       setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
       setIsAnimating(false);
     }, 300);
-  };
+  }, [slides.length]);
+
+  // Auto-advance slides every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(goToNextSlide, 5000);
+    
+    return () => clearInterval(interval);
+  }, [goToNextSlide]);
 
   const goToPrevSlide = () => {
     setIsAnimating(true);
@@ -65,19 +64,24 @@ export default function Slideshow() {
               : 'opacity-0 scale-110'
           }`}
         >
-          {/* Placeholder for image - in a real app, you would use next/image */}
+          {/* Using solid color background with text since we're using SVG images */}
           <div 
-            className="w-full h-full bg-gray-200 flex items-center justify-center"
-            style={{ 
-              backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(${slide.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center'
-            }}
+            className="w-full h-full bg-gradient-to-r from-primary to-red-800 flex items-center justify-center"
           >
             <div className="text-center text-white px-4 max-w-4xl transition-all duration-1000 ease-out transform translate-y-0 opacity-100">
+              <div className="flex justify-center mb-6">
+                <div className="relative w-24 h-24 invert">
+                  <Image 
+                    src={slide.image} 
+                    alt={slide.title} 
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
               <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fadeInUp">{slide.title}</h1>
               <p className="text-lg md:text-xl mb-8 animate-fadeInUp delay-100">{slide.description}</p>
-              <button className="bg-primary hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fadeInUp delay-200">
+              <button className="bg-white text-primary hover:bg-gray-100 font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg animate-fadeInUp delay-200">
                 Pelajari Lebih Lanjut
               </button>
             </div>

@@ -1,15 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Slideshow from './components/Slideshow';
 
 export default function Home() {
-  const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
-    setIsVisible(true);
-    
     // Add scroll animation for elements
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

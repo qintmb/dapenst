@@ -1,14 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 
 export default function Layanan() {
-  const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
-    setIsVisible(true);
-    
     // Add scroll animation for elements
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
