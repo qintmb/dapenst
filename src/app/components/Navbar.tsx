@@ -58,14 +58,14 @@ export default function Navbar() {
     },
     { name: 'Berita', href: '/berita' },
     { name: 'Informasi', href: '/informasi' },
-    { 
-      name: 'Anti Fraud', 
+    {
+      name: 'Anti Fraud',
       href: '/anti-fraud',
       hasDropdown: true,
       dropdownItems: [
-        { name: 'Deklarasi Anti Fraud', href: '/anti-fraud/deklarasi' },
-        { name: 'Whistle Blowing System', href: '/anti-fraud/whistle-blowing' },
-      ] 
+        { name: 'Deklarasi Anti Fraud', href: '/anti-fraud/deklarasi-anti-fraud' },
+        { name: 'Whistle Blowing System', href: '/anti-fraud/whistle-blowing-system' },
+      ]
     },
   ];
 
@@ -99,7 +99,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-1">
+        <nav className="hidden md:flex space-x-4">
           {navLinks.map((link) => (
             <div key={link.name} className="relative" ref={link.name === 'Layanan' ? layananDropdownRef : (link.name === 'Anti Fraud' ? antiFraudDropdownRef : undefined)}>
               {link.hasDropdown ? (

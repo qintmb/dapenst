@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
-import { supabase } from '@/utils/supabase';
-import { Berita } from '@/utils/supabase';
+import { supabase } from '../../utils/supabase';
+import type { Berita } from '../../utils/supabase';
 
 export default function Berita() {
   const [beritaList, setBeritaList] = useState<Berita[]>([]);
@@ -150,7 +150,7 @@ export default function Berita() {
               {currentItems.map((berita, index) => (
                 <div 
                   key={berita.id} 
-                  className="bg-container-grey dark:bg-gray-400 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0"
+                  className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 animate-on-scroll opacity-0"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="relative h-48 overflow-hidden">
@@ -163,8 +163,8 @@ export default function Berita() {
                   </div>
                   <div className="p-6">
                     <span className="text-sm text-primary font-semibold">{formatDate(berita.tanggal)}</span>
-                    <h3 className="text-white text-xl font-semibold my-2 line-clamp-2">{berita.judul}</h3>
-                    <p className="text-black text-secondary mb-4 line-clamp-3">
+                    <h3 className="text-gray-900 dark:text-white text-xl font-semibold my-2 line-clamp-2">{berita.judul}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
                       {berita.narasi}
                     </p>
                     <Link 
@@ -188,7 +188,7 @@ export default function Berita() {
                   <button 
                     key={number}
                     onClick={() => paginate(number)}
-                    className={`px-4 py-2 rounded transition-all duration-300 ${currentPage === number ? 'bg-primary text-white' : 'bg-container-grey dark:bg-gray-700 text-foreground hover:bg-gray-300 dark:hover:bg-gray-600'}`}
+                    className={`px-4 py-2 rounded transition-all duration-300 ${currentPage === number ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600'}`}
                   >
                     {number}
                   </button>
@@ -196,7 +196,7 @@ export default function Berita() {
                 {currentPage < totalPages && (
                   <button 
                     onClick={() => paginate(currentPage + 1)}
-                    className="px-4 py-2 rounded bg-container-grey dark:bg-gray-700 text-foreground hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-105"
+                    className="px-4 py-2 rounded bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 transform hover:scale-105"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

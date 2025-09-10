@@ -174,7 +174,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus berita ini?')) {
       try {
         const { error } = await supabaseAdmin
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
           .eq('id', id);
 
         if (error) throw error;
-        
+
         setSuccess('Berita berhasil dihapus');
         fetchBerita();
       } catch (error) {
@@ -267,7 +267,7 @@ export default function AdminDashboard() {
             <h3 className="text-lg leading-6 font-medium text-gray-900">Manajemen Berita</h3>
             <button
               onClick={() => openModal()}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-red-700"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark"
             >
               Tambah Berita
             </button>
@@ -325,7 +325,7 @@ export default function AdminDashboard() {
                           Edit
                         </button>
                         <button
-                          onClick={() => handleDelete(berita.id as number)}
+                          onClick={() => handleDelete(berita.id)}
                           className="text-red-600 hover:text-red-900">
                           Hapus
                         </button>
@@ -457,7 +457,7 @@ export default function AdminDashboard() {
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
                     type="submit"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm"
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-white hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     {isEditing ? 'Simpan Perubahan' : 'Tambah Berita'}
                   </button>
