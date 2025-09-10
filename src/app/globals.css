@@ -1,25 +1,15 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #d32f2f; /* Red color for primary elements */
-  --secondary: #616161; /* Grey color for secondary elements */
-  --accent: #f5f5f5; /* Light grey for accents */
-  --soft-grey: #f8f9fa; /* Soft grey for backgrounds */
-  --container-grey: #f0f0f0; /* Container grey */
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --color-accent: var(--accent);
-  --color-soft-grey: var(--soft-grey);
-  --color-container-grey: var(--container-grey);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --primary: #d32f2f;
+  --secondary: #616161;
+  --accent: #f5f5f5;
+  --soft-grey: #f8f9fa;
+  --container-grey: #f0f0f0;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,36 +24,40 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
+  }
 }
 
-/* Custom Animations */
-@keyframes fadeInUp {
-  from {
+@layer utilities {
+  /* Custom Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
     opacity: 0;
-    transform: translateY(20px);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .delay-200 {
+    animation-delay: 0.2s;
+    opacity: 0;
   }
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.delay-100 {
-  animation-delay: 0.1s;
-  opacity: 0;
-}
-
-.delay-200 {
-  animation-delay: 0.2s;
-  opacity: 0;
 }
 
 /* Smooth scroll behavior */
